@@ -1,4 +1,9 @@
-﻿<Window x:Class="CurrencyConvertorPart1.MainWindow"
+﻿# 002 WPF Currency Converter - Rectangles and Gradients
+
+`MainWindow.xaml` :
+
+```xaml
+<Window x:Class="CurrencyConvertorPart1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -34,3 +39,4 @@
         </Border>
     </Grid>
 </Window>
+```
