@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -91,17 +92,58 @@ namespace CurrencyConvertorPart1
                 cmbToCurrency.Focus();
                 return;
             }
+
+            //If From and To Combobox selected values are same
+            if (cmbFromCurrency.Text == cmbToCurrency.Text)
+            {
+                //The amount textbox value set in ConvertedValue.
+                //double.parse is used to convert datatype String To Double.
+                //Textbox text have string and ConvertedValue is double datatype
+                ConvertedValue = double.Parse(txtCurrency.Text);
+
+                //Show in label converted currency and converted currency name.
+                // and ToString("N3") is used to place 000 after after the(.)
+                lblCurrency.Content = cmbToCurrency.Text + " " + ConvertedValue.ToString("N3");
+            }
+            else
+            {
+
+                //Calculation for currency converter is From Currency value multiply(*) 
+                // with amount textbox value and then the total is divided(/) with To Currency value
+                ConvertedValue = (double.Parse(cmbFromCurrency.SelectedValue.ToString()) * double.Parse(txtCurrency.Text)) / double.Parse(cmbToCurrency.SelectedValue.ToString());
+
+                //Show in label converted currency and converted currency name.
+                lblCurrency.Content = cmbToCurrency.Text + " " + ConvertedValue.ToString("N3");
+            }
         }
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            //txtCurrency.Clear(); GTP
-            lblCurrency.Content = "";
+            //txtCurrency.Clear(); ChatGPT
+            //lblCurrency.Content = "";
+
+            ClearControls();
         }
 
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            // Validation code
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void ClearControls()
+        {
+            txtCurrency.Text = string.Empty;
+            if (cmbFromCurrency.Items.Count > 0)
+            {
+                cmbFromCurrency.SelectedIndex = 0;
+            }
+            if (cmbToCurrency.Items.Count > 0)
+            {
+                cmbToCurrency.SelectedIndex = 0;
+            }
+            lblCurrency.Content = "";
+            txtCurrency.Focus();
         }
     }
 }
