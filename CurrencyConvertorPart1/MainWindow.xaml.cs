@@ -19,6 +19,23 @@ namespace CurrencyConvertorPart1
         public MainWindow()
         {
             InitializeComponent();
+            lblCurrency.Content = "Hello World!";
+        }
+
+        private void Convert_Click(object sender, RoutedEventArgs e)
+        {
+            lblCurrency.Content = "Hellow Button Clicker";
+        }
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            //txtCurrency.Clear(); GTP
+            lblCurrency.Content = "";
+        }
+
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            // Validation code
         }
     }
 }

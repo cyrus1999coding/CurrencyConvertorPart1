@@ -1,4 +1,74 @@
-﻿<Window x:Class="CurrencyConvertorPart1.MainWindow"
+﻿# 005 WPF Currency Converter - Creating Input Fields with Text Box and Combo Box
+
+```xaml
+<TextBox Name="txtCurrency" Width="200" Height="30" Margin="40 0 0 0" PreviewTextInput="NumberValidationTextBox" FontSize="18" VerticalContentAlignment="Center" VerticalAlignment="Top"></TextBox>
+```
+- <TextBox> :  
+  A box which we can enter a text .
+- `Name="txtCurrency"` :  
+  Because we want to be able to get the Value that the User entered from this <TextBox>, to use in our Program .  
+- 🔑`PreviewTextInput="NumberValidationTextBox"` :   
+  When somebody enteres something we want them to limited to only enter numbers  
+  That's why we created this function → `NumberValidationTextBox`  
+  That we need to implement later on .   
+  `MainWindow.xaml.cs` :
+  ```cs
+    namespace CurrencyConvertorPart1
+    {
+        /// <summary>
+        /// Interaction logic for MainWindow.xaml
+        /// </summary>
+        public partial class MainWindow : Window
+        {
+            public MainWindow()
+            {
+                InitializeComponent();
+                lblCurrency.Content = "Hello World!";
+            }
+
+            private void Covert_Click(object sender, RoutedEventArgs e)
+            {
+                lblCurrency.Content = "Hellow Button Clicker";
+            }
+            private void Clear_Click(object sender, RoutedEventArgs e)
+            {
+                lblCurrency.Content = "";
+            }
+
+            👇
+            private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+            {
+
+            
+            }
+            👆
+        }
+    }
+  ```
+  And we can filter our key strokes that aren't numbers basically .
+  
+
+```xaml
+<ComboBox Name="cmbFromCurrency" Width="170" Height="30" Margin="60 0 40 0" FontSize="18" VerticalContentAlignment="Center" VerticalAlignment="Top" MaxDropDownHeight="150"></ComboBox>
+```
+- 🔑`<ComboBox>` :  
+  Allows us to select out of Multiple different values .  
+  So what are the values that we want to allow to have ? ↓
+  `Name="cmbFromCurrency"`, We'll define that in the *Code behind* giving it 🔑`ItemsSource` which is really important  
+  because it needs to know that it can display .
+
+```xaml
+<fa:ImageAwesome Icon="Exchange" Height="30" Width="30" Foreground="White" VerticalAlignment="Top"></fa:ImageAwesome>
+```
+- `fa:ImageAwesome` :  
+  Then we have this 🔑`ImageAwesome` which we get with NuGet
+
+(Myself) :
+
+`MainWindow.xaml` so far ↓  
+
+```xaml
+<Window x:Class="CurrencyConvertorPart1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -70,3 +140,57 @@
         </StackPanel>
     </Grid>
 </Window>
+```
+
+`MainWindow.xaml.cs` so far ↓
+
+```cs
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace CurrencyConvertorPart1
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+            lblCurrency.Content = "Hello World!";
+        }
+
+        private void Convert_Click(object sender, RoutedEventArgs e)
+        {
+            lblCurrency.Content = "Hellow Button Clicker";
+        }
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            //txtCurrency.Clear(); GTP
+            lblCurrency.Content = "";
+        }
+
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            // Validation code
+        }
+    }
+}
+```
+
+
+```xaml
+<Button Name="Convert" Height="40" Width="150" Content="Convert" Click="Convert_Click" Margin="350 0 20 0" Foreground="White" FontSize="20" Style="{StaticResource ButtonRound}">
+```
+- 🔑`Style="{StaticResource ButtonRound}"` .
+
